@@ -1,0 +1,109 @@
+<html lang="en">
+{% load static %}
+{% load search_tags %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+	{% block title %}
+    <title>
+		SC-SEARCHER | {{ title|default:"страница"|title }}
+    </title>
+	{% endblock %}
+
+    {% block css %}
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
+<!--    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,300,400,500,600,700" rel="stylesheet">-->
+<!--    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,500i,700&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+
+	{% endblock %}
+
+    {% block js %}
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
+    {% endblock %}
+</head>
+<body>
+    <div class="container-wrapper container">
+        {% block menu %}
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="{% url 'main:index' %}">
+            <img src="{% static 'img/logo.png' %}" width="30" height="30" alt="">
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'main:index' %}">Главная</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownIp" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Поиск IP
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownIP">
+                    <a class="dropdown-item" href="{% url 'searcher:main' %}">Полная информация по IP</a>
+                  <a class="dropdown-item" href="{% url 'main:ip_search' %}">Массовый поиск (OpenVas)</a>
+                  <a class="dropdown-item" href="{% url 'searcher:ioc' %}">Поиск IOC по IP</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMac" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Поиск MAC
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMac">
+                    <a class="dropdown-item" href="{% url 'searcher:mac' %}">Иcтория MAC адреса</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownHostname" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Поиск Hostname
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownHostname">
+                    <a class="dropdown-item" href="{% url 'searcher:hostname' %}">Hostname поиск</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'incidents:main' %}">Инциденты</a>
+              </li>
+            </ul>
+              {% search_form %}
+          </div>
+        </nav>
+        {% endblock %}
+        <!--container-fluid-->
+        <div class="content-wrapper">
+            {% if user.is_authenticated %}
+                {% block content %}
+                {% endblock %}
+            {% else %}
+                <div class="alert alert-danger" role="alert">
+                  Для пользования сервисом необходимо <a href="{% url 'admin:login' %}" class="alert-link">войти в учетную запись</a>.
+                </div>
+            {% endif %}
+        </div>
+        {% block footer %}
+        <nav class="navbar fixed-bottom navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">&copy;SC-SEARCHER.</a>
+          </div>
+        </nav>
+		{% endblock %}
+	</div>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+<!--    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+<script>
+
+</script>
+</html>

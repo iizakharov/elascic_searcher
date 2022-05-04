@@ -1,0 +1,46 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card" xmlns="http://www.w3.org/1999/html">
+  {% if result %}
+  <div class="card-header">
+    Отчет по запросу
+  </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">IP адрес</th>
+          <th scope="col">Порт</th>
+          <th scope="col">Подсеть</th>
+          <th scope="col">Сеть</th>
+          <th scope="col">Регион</th>
+          <th scope="col">Учреждение</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for k, v in result.items %}
+        <tr>
+          <th scope="row">{{ k }}</th>
+          <td><a href="{{ v.ip_url }}" target="_blank">{{ v.ip }}</a></td>
+          <td>{{ v.port }}</td>
+          <th scope="col"><a href="{{ v.prefix_url }}" target="_blank">{{ v.prefix }}</a></th>
+          <th scope="col"><a href="{{ v.aggregate_url }}" target="_blank">{{ v.aggregate }}</a></th>
+          <th scope="col"><a href="{{ v.region_url }}" target="_blank">{{ v.region }}</a></th>
+          <td><a href="{{ v.tenant_url }}" target="_blank">{{ v.tenant }}</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+  <div class="card-header">
+    Ошибка запроса!
+  </div>
+  <div class="card-body">
+  <p class="card-text">Вы не добавили информации для поиска, попробуйте ещё раз или обратитесь к администратору.</p>
+  <a class="btn btn-secondary" href="{% url 'main:ip_search' %}" role="button">Повторить</a>
+  {% endif %}
+</div>
+{% endblock %}

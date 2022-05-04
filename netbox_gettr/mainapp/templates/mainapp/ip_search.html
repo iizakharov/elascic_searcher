@@ -1,0 +1,23 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="content">
+      <div class="card">
+        <div class="card-header">
+          Быстрый поиск
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Быстрый поиск IP адресов в IPAM</h5>
+          <p class="card-text">Вставьте список IP адресов в форму ввода, без запятых, каждый IP-адрес на новой строчке.
+            Либо или загрузите файл со списком IP адресов, или файл отчета OpenVas с расширением 'csv'</p>
+          <form action="{% url 'main:create_report' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ input_form.as_p }}
+            <button type="submit" class="btn btn-secondary btn-lg">Получить результат</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+{% endblock %}

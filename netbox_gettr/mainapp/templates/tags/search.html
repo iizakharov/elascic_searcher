@@ -1,0 +1,5 @@
+<form class="form-inline my-2 my-lg-0" action="{% url 'main:search_form' %}" method="post">
+        {% csrf_token %}
+        {{ menu_search_form }}
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+</form>
