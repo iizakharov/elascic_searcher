@@ -1,0 +1,19 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card">
+<div class="card-header">
+  Отчет по запросу
+</div>
+<div class="card-body">
+  <h5 class="card-title">Быстрый поиск адресов</h5>
+  <p class="card-text">Вставьте список IP адресов или загрузите файл</p>
+  <p class="card-text">{{ document.name }}</p>
+  <p class="card-text">{{ document.document }}</p>
+  <p class="card-text"><img src="/media/{{ document.document }}" alt="{{ document.name }}"></p>
+    <a href="/media/{{ document.document }}">Ccskrf</a>
+  <p class="card-text">{{ document.data }}</p>
+  <p class="card-text"></p>
+</div>
+{% endblock %}

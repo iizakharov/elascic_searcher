@@ -1,0 +1,19 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="content">
+      <div class="card">
+        <div class="card-header">
+          Начало:
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Быстрый поиск информации в IPAM</h5>
+          <p class="card-text">Сервис создан для упрощенного и убодного поиска информации в модуле инвентарицазии.
+            Все предложения по улучшению сервиса присылайте на почту/MyTeam "i.zaharov@mchs.gov.ru"</p>
+          <img src="{% static 'img/screen.png' %}" class="img-fluid" alt="Responsive image">
+        </div>
+      </div>
+
+    </div>
+{% endblock %}
