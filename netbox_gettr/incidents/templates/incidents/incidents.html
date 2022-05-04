@@ -1,0 +1,175 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="preloader">
+  <div class="preloader-4">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+<div class="card" xmlns="http://www.w3.org/1999/html">
+  {% if result %}
+  <div class="card-header">
+    Инциденты за последние 3 дня.
+  </div>
+  <div class="card-body">
+      <div class="result-body">
+        {% if mssec %}
+          <button class="btn btn-outline-dark btn-lg accordion-res">Зараженные АРМ</button>
+          <div class="panel-res">
+            <input class="form-control" type="text" placeholder="Поиск по таблице..." id="search-text" onkeyup="tableSearch()" style="margin: 10px 0;">
+            <table class="table table-striped table-hover table-sm" id="info-table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Имя хоста</th>
+                    <th scope="col">IP</th>
+                    <th scope="col">IP подключения</th>
+                    <th scope="col">Порт</th>
+                    <th scope="col">Путь к приложению</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">АВЗ</th>
+                    <th scope="col">СЗИ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for k, v in mssec.items %}
+                  <tr>
+                    <th scope="col"><span class="table-text">{{ k }}</span></th>
+                    {% for row in v.values %}
+                    <th scope="col"><span class="table-text">{{ row }}</span></th>
+                    {%  endfor %}
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                  </table>
+          </div>
+          <div class="margin"></div>
+        {% endif %}
+        {% if intranet %}
+          <button class="accordion-res btn btn-outline-dark btn-lg">Выходы во внешнюю сеть</button>
+          <div class="panel-res">
+            <input class="form-control" type="text" placeholder="Поиск по таблице..." id="search-textOS" onkeyup="tableSearchOS()" style="margin: 10px 0;">
+            <table class="table table-striped table-hover table-sm" id="info-tableOS">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col"><p class="table-text">#</p></th>
+                        <th scope="col"><p class="table-text">Дата</p></th>
+                        <th scope="col"><p class="table-text">Имя хоста</p></th>
+                        <th scope="col"><p class="table-text">Внутренный IP</p></th>
+                        <th scope="col"><p class="table-text">Локальный IP</p></th>
+                        <th scope="col"><p class="table-text">Имя приложения</p></th>
+                        <th scope="col"><p class="table-text">IP подключения</p></th>
+                        <th scope="col"><p class="table-text">Порт</p></th>
+                        <th scope="col"><p class="table-text">Статус</p></th>
+                        <th scope="col"><p class="table-text">САВЗ</p></th>
+                        <th scope="col"><p class="table-text">СЗИ от НСД</p></th>
+                        <th scope="col"><p class="table-text">Пользователь</p></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for k, v in intranet.items %}
+                      <tr>
+                        <th scope="col"><p class="table-text">{{ k }}</p></th>
+                        {% for row in v.values %}
+                        <th scope="col"><p class="table-text">{{ row }}</p></th>
+                        {%  endfor %}
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+          </div>
+          <div class="margin"></div>
+        {% endif %}
+        {% if messenger %}
+          <button class="accordion-res btn btn-outline-dark btn-lg">Мессенджеры</button>
+          <div class="panel-res">
+            <input class="form-control" type="text" placeholder="Поиск по таблице..." id="search-textPO" onkeyup="tableSearchPO()" style="margin: 10px 0;">
+            <table class="table table-striped table-hover table-sm" id="info-tablePO">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col"><p class="table-text">#</p></th>
+                        <th scope="col"><p class="table-text">Дата</p></th>
+                        <th scope="col"><p class="table-text">Имя хоста</p></th>
+                        <th scope="col"><p class="table-text">Внутренний IP</p></th>
+                        <th scope="col"><p class="table-text">Локальный IP</p></th>
+                        <th scope="col"><p class="table-text">Приложение</p></th>
+                        <th scope="col"><p class="table-text">IP подключения</p></th>
+                        <th scope="col"><p class="table-text">Порт</p></th>
+                        <th scope="col"><p class="table-text">Статус</p></th>
+                        <th scope="col"><p class="table-text">САВЗ</p></th>
+                        <th scope="col"><p class="table-text">СЗИ от НСД</p></th>
+                        <th scope="col"><p class="table-text">Пользователь</p></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        {% for k, v in messenger.items %}
+                          <tr>
+                            <th scope="col"><p class="table-text">{{ k }}</p></th>
+                            {% for row in v.values %}
+                            <th scope="col"><p class="table-text">{{ row }}</p></th>
+                            {%  endfor %}
+                          </tr>
+                        {% endfor %}
+                      </tr>
+                    </tbody>
+                  </table>
+          </div>
+          <div class="margin"></div>
+        {% endif %}
+    </div>
+  </div>
+  </div>
+  {% else %}
+    <div class="card-header">
+      Ошибка запроса!
+    </div>
+    <div class="card-body">
+    <p class="card-text">Вы не добавили информации для поиска, попробуйте ещё раз или обратитесь к администратору.</p>
+    <a class="btn btn-outline-dark" href="{% url 'incidents:main' %}" role="button">Повторить</a>
+    {% endif %}
+</div>
+
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<!--<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>-->
+<script src="{% static 'js/filterScript.js' %}"></script>
+<script>
+var acc = document.getElementsByClassName("accordion-res");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("according-res-active");
+
+    /* Toggle between hiding and showing the active panel */
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>
+<script>
+  window.onload = function() {
+      document.querySelector('.preloader').classList.add("preloader-remove");
+  };
+</script>
+<script>
+  $(window).on('load', function () {
+      $('.preloader').addClass("preloader-remove");
+  });
+</script>
+{% endblock %}
